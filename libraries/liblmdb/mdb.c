@@ -8517,8 +8517,15 @@ mdb_cursor_open(MDB_txn *txn, MDB_dbi dbi, MDB_cursor **ret)
 	size_t size = sizeof(MDB_cursor);
 
 	if (!ret || !TXN_DBI_EXIST(txn, dbi, DB_VALID)) {
-    printf("mdb_cursor_open 1");
-    printf("mdb_cursor_open ret %s, TXN_DBI_EXIST(txn, dbi, DB_VALID) %s", ret ? "true" : "false", TXN_DBI_EXIST(txn, dbi, DB_VALID) ? "true" : "false");
+    printf("mdb_cursor_open 1\n");
+    printf("mdb_cursor_open ret %s, TXN_DBI_EXIST(txn, dbi, DB_VALID) %s\n", ret ? "true" : "false", TXN_DBI_EXIST(txn, dbi, DB_VALID) ? "true" : "false");
+		printf("mdb_cursor_open txn %s\n", txn ? "true" : "false");
+    if (txn) {
+      printf("mdb_cursor_open (dbi)<(txn)->mt_numdbs %s\n", (dbi)<(txn)->mt_numdbs ? "true" : "false");
+			if ((dbi)<(txn)->mt_numdbs) {
+				printf("mdb_cursor_open ((txn)->mt_dbflags[dbi] & (validity)) %s\n", ((txn)->mt_dbflags[dbi] & (validity)) ? "true" : "false");
+			}
+    }
 		return EINVAL;
 	}
 
