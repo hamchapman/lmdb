@@ -8516,14 +8516,24 @@ mdb_cursor_open(MDB_txn *txn, MDB_dbi dbi, MDB_cursor **ret)
 	MDB_cursor	*mc;
 	size_t size = sizeof(MDB_cursor);
 
-	if (!ret || !TXN_DBI_EXIST(txn, dbi, DB_VALID))
+	if (!ret || !TXN_DBI_EXIST(txn, dbi, DB_VALID)) {
+    printf("mdb_cursor_open 1");
+    printf("mdb_cursor_open ret %s, TXN_DBI_EXIST(txn, dbi, DB_VALID) %s", ret ? "true" : "false", TXN_DBI_EXIST(txn, dbi, DB_VALID) ? "true" : "false");
 		return EINVAL;
+	}
 
+	printf("mdb_cursor_open 2");
 	if (txn->mt_flags & MDB_TXN_BLOCKED)
 		return MDB_BAD_TXN;
 
-	if (dbi == FREE_DBI && !F_ISSET(txn->mt_flags, MDB_TXN_RDONLY))
+	printf("mdb_cursor_open 3");
+	if (dbi == FREE_DBI && !F_ISSET(txn->mt_flags, MDB_TXN_RDONLY)) {
+		printf("mdb_cursor_open 4");
+		printf("mdb_cursor_open dbi == FREE_DBI %s, F_ISSET(txn->mt_flags, MDB_TXN_RDONLY) %s", dbi == FREE_DBI ? "true" : "false", F_ISSET(txn->mt_flags, MDB_TXN_RDONLY) ? "true" : "false");
 		return EINVAL;
+	}
+
+	printf("mdb_cursor_open 5");
 
 	if (txn->mt_dbs[dbi].md_flags & MDB_DUPSORT)
 		size += sizeof(MDB_xcursor);
