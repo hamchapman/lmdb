@@ -8522,6 +8522,8 @@ mdb_cursor_open(MDB_txn *txn, MDB_dbi dbi, MDB_cursor **ret)
 		printf("mdb_cursor_open txn %s\n", txn ? "true" : "false");
     if (txn) {
       printf("mdb_cursor_open (dbi)<(txn)->mt_numdbs %s\n", (dbi)<(txn)->mt_numdbs ? "true" : "false");
+      printf("mdb_cursor_open dbi %d\n", dbi);
+      printf("mdb_cursor_open (txn)->mt_numdbs %d\n", (txn)->mt_numdbs);
 			if ((dbi)<(txn)->mt_numdbs) {
 				printf("mdb_cursor_open ((txn)->mt_dbflags[dbi] & (DB_VALID)) %s\n", ((txn)->mt_dbflags[dbi] & (DB_VALID)) ? "true" : "false");
 			}
